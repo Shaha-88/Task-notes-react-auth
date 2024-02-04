@@ -8,9 +8,18 @@ import Notes from "./pages/Notes";
 import Note from "./pages/Note";
 import Users from "./pages/Users";
 import { clear } from "@testing-library/user-event/dist/clear";
+import {UserContext} from "./src/context"
+
 
 function App() {
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    setUser(checkToken());
+  }, []);
+
   return (
+    <UserContext.Provider value={[user, setUser]}>
     <div className="App font-mono ">
       <Navbar />
       <Routes>
@@ -22,6 +31,7 @@ function App() {
         <Route path="/users" Component={Users} />
       </Routes>
     </div>
+  </UserContext.Provider>
   );
 }
 
